@@ -1558,5 +1558,12 @@ def like4like_functions(req_dict: dict) -> None:
             event.wait(8)
             driver_12.save_screenshot("screenshots/screenshot.png")
 
-    for_loop_like(driver)
-    driver.quit()
+    #for_loop_like(driver)
+    cplot=0
+    while(True):
+        cplot+=1
+        try:
+            for_loop_like(driver)
+            logging.info("Restaring like4like .org again",cplot,"times")
+        except:
+            gtgfdsfhd=8
