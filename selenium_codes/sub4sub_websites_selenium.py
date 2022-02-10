@@ -1306,8 +1306,8 @@ def goviral_functions(req_dict: dict) -> None:
     while(True):
         colp+=1
         try:
-        for_loop_like(driver)
-        logging.info("Restaring again",colp,"times")
+            for_loop_like(driver)
+            logging.info("Restaring again",colp,"times")
         except:
             gtgffhd=8
 
