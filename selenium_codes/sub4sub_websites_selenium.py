@@ -1113,7 +1113,7 @@ def goviral_functions(req_dict: dict) -> None:
                       skip_btn: str = 'btn btn-secondary skip-video'
                       ) -> None:
         logging.info("Loop Started")
-        for i in range(400):
+        for i in range(10000):
             n = 0
             try:
                 driver_9.find_element(By.XPATH, "//*[@id='kt_content']/div/div[1]/div/form/div/div[1]/div/div/button")\
@@ -1158,7 +1158,7 @@ def goviral_functions(req_dict: dict) -> None:
                     break
             if x >= 85:
                 continue
-            driver_9.save_screenshot("screenshots/screenshot.png")
+            #driver_9.save_screenshot("screenshots/screenshot.png")
             try:
                 driver_9.find_element(By.XPATH, "//*[@id='kt_content']/div/div[1]/div/form/div/div[1]/div/div/button")\
                     .send_keys(Keys.ENTER)
@@ -1186,7 +1186,7 @@ def goviral_functions(req_dict: dict) -> None:
                     TimeoutException,
                     StaleElementReferenceException):
                 pass
-            driver_9.save_screenshot("screenshots/screenshot.png")
+            #driver_9.save_screenshot("screenshots/screenshot.png")
             while int(driver_9.find_element(By.CLASS_NAME, "time-remaining-amount").text) > 12:
                 event.wait(0.25)
                 # logging.info('Flag3')
@@ -1260,7 +1260,7 @@ def goviral_functions(req_dict: dict) -> None:
             # except (ElementClickInterceptedException, ElementNotInteractableException, NoSuchElementException) as ex:
             #     pass
             #     logging.info(f'Couldnt find like_btn, {ex}')
-            driver_9.save_screenshot("screenshots/screenshot.png")
+            #driver_9.save_screenshot("screenshots/screenshot.png")
             try:
                 event.wait(1.5)
                 driver_9.find_element(By.ID, 'verify-action-button').click()
@@ -1269,7 +1269,7 @@ def goviral_functions(req_dict: dict) -> None:
             except (ElementNotInteractableException, StaleElementReferenceException,
                     ElementClickInterceptedException, NoSuchElementException):
                 pass
-            driver_9.save_screenshot("screenshots/screenshot.png")
+            #driver_9.save_screenshot("screenshots/screenshot.png")
             try:
                 while driver_9.find_element(By.CLASS_NAME, "time-remaining-amount").text != "0":
                     event.wait(0.5)
@@ -1302,10 +1302,14 @@ def goviral_functions(req_dict: dict) -> None:
             except StaleElementReferenceException:
                 event.wait(1)
                 continue
-
-    for_loop_like(driver)
-    logging.info("Channels were liked and subscribed successfully, quitting driver")
-    driver.quit()
+    colp=0
+    while(True):
+        colp+=1
+        try:
+        for_loop_like(driver)
+        logging.info("Restaring again",colp,"times")
+        except:
+            gtgffhd=8
 
 
 def youtubviews_functions(req_dict: dict) -> None:
