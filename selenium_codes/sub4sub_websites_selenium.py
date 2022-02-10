@@ -612,6 +612,7 @@ def submenow_functions(req_dict: dict) -> None:
     event.wait(1.25)
     try:
         #driver.save_screenshot("screenshots/screenshot.png")
+        dnd=6
     except UnexpectedAlertPresentException:
         pass
     if len(driver.find_elements(By.XPATH, "//*[@id='mainContentWrapper']/div[18]/div[3]/div[3]/button")) > 0:
