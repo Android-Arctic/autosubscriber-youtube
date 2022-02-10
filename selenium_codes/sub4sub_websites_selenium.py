@@ -1411,7 +1411,7 @@ def youlikehits_functions(req_dict: dict) -> None:
     driver.find_element(By.ID, "username").send_keys(req_dict['username_youlikehits'])
     driver.find_element(By.ID, "password").send_keys(req_dict['pw_youlikehits'])
     driver.find_element(By.XPATH, "//tbody/tr[3]/td[1]/span[1]/input[1]").click()
-    driver.save_screenshot("screenshots/screenshot.png")
+    #driver.save_screenshot("screenshots/screenshot.png")
     driver.find_element(By.XPATH, '/html/body/div/table[1]/tbody/tr[2]/td/table/tbody/tr/td/nav/ul/li[2]/a').click()
     driver.find_element(By.XPATH, '/html/body/div/table[2]/tbody/tr/td/table[1]/tbody/tr/td/table/tbody/tr[2]/'
                                   'td/center/div[8]/div').click()
@@ -1460,7 +1460,7 @@ def youlikehits_functions(req_dict: dict) -> None:
                     sub_button = driver_11.find_elements(By.ID,
                                                          ytbutton_elements_location_dict['yt_id_sub_button_type1'])[0]
                     ActionChains(driver_11).move_to_element(sub_button).click().perform()
-                driver_11.save_screenshot("screenshots/screenshot_proof.png")
+                #driver_11.save_screenshot("screenshots/screenshot_proof.png")
                 logging.info("Subscribed to Channel")
             except (NoSuchWindowException, StaleElementReferenceException, NoSuchElementException) as ex:
                 if type(ex).__name__ == 'NoSuchElementException':
