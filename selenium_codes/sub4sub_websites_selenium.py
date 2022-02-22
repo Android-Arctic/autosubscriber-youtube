@@ -1081,7 +1081,7 @@ def ytbpals_functions(req_dict: dict) -> None:
     for_loop_sub(driver)
 
 
-def goviral_functions(req_dict: dict) -> None:
+def goviral_functions() -> None:
     """goviral login and then earn credits by liking videos with inner like loop function(for_loop_sub)
     Args:
     - req_dict(dict): dictionary object of required parameters
