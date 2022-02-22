@@ -9,6 +9,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 import logging
 import os
+import time
 from threading import Event
 
 # Logging Initializer
@@ -1089,229 +1090,23 @@ def goviral_functions(req_dict: dict) -> None:
     """
     driver: webdriver = set_driver_opt(req_dict)
     driver.implicitly_wait(10)
-    driver.get("https://accounts.google.com/signin")
-    google_login(driver, req_dict, has_login_btn=False)
-    logging.info("youtube login completed")
-    event.wait(3)
-    driver.get("https://members.goviral.ai/")  # Type_Undefined
-    driver.find_element(By.NAME, "email").send_keys(req_dict['email_goviral'])
-    driver.find_element(By.NAME, "password").send_keys(req_dict['pw_goviral'])
-    driver.find_element(By.CSS_SELECTOR, "#loginForm > div.kt-login__actions.justify-content-around > button").click()
-    driver.find_element(By.CSS_SELECTOR, "#kt_aside_menu > ul > li:nth-child(4) > a > span.kt-menu__link-text").click()
-    #driver.save_screenshot("screenshots/screenshot.png")
-    # yt_javascript = True
-
-    def for_loop_like(driver_9: webdriver,
-                      like_btn_available: str = "#kt_content > div > div.col-md-8 > div > form > div >"
-                                                " div.disabled-area.position-relative >"
-                                                " section.earn-likes.earning-box.position-relative.disabled",
-                      subscribe_btn_available: str = "#kt_content > div > div.col-md-8 > div > form > div >"
-                                                     " div.disabled-area.position-relative >"
-                                                     " section.earn-subscribes.earning-box.position-relative.disabled",
-                      like_btn: str = "",
-                      subscribe_btn: str = "",
-                      next_btn: str = "/html/body/div[3]/div/div[2]/div[2]/div/div/div[1]/div/form/div/div[2]"
-                                      "/button[1]",
-                      skip_btn: str = 'btn btn-secondary skip-video'
-                      ) -> None:
-        logging.info("Loop Started")
-        for i in range(10000):
-            n = 0
-            try:
-                driver_9.find_element(By.XPATH, "//*[@id='kt_content']/div/div[1]/div/form/div/div[1]/div/div/button")\
-                    .send_keys(Keys.ENTER)
-                # logging.info("Enable button has been pressed")
-                event.wait(2)
-            except (NoSuchElementException,
-                    ElementNotInteractableException,
-                    TimeoutException,
-                    StaleElementReferenceException):
-                pass
-            while len(driver_9.find_elements(By.CLASS_NAME, "time-remaining-amount")) == 0:
-                event.wait(0.5)
-                # logging.info('Flag1')
-                n += 1
-                if n >= 50:
-                    try:
-                        try:
-                            driver_9.switch_to.window(driver_9.window_handles[1])
-                            driver_9.close()
-                        except NoSuchWindowException:
-                            pass
-                        driver_9.switch_to.window(driver_9.window_handles[0])
-                        driver_9.get("https://members.goviral.ai/coins")
-                        logging.info('Goviral is not continuing its functions, refreshing the website 1')
-                        break
-                    except (ElementNotInteractableException,
-                            StaleElementReferenceException):
-                        pass
-                    event.wait(0.25)
-                    continue
-            if n >= 55:
-                driver.switch_to.window(driver_9.window_handles[0])
-                continue
-            x = 0
-            while len(driver_9.window_handles) == 1:
-                event.wait(0.5)
-                # logging.info('Flag2')
-                x += 1
-                if x >= 85:
-                    driver_9.refresh()
-                    break
-            if x >= 85:
-                continue
-            #driver_9.save_screenshot("screenshots/screenshot.png")
-            try:
-                driver_9.find_element(By.XPATH, "//*[@id='kt_content']/div/div[1]/div/form/div/div[1]/div/div/button")\
-                    .send_keys(Keys.ENTER)
-                # logging.info("Enable button has been pressed")
-                driver_9.refresh()
-                event.wait(2)
-                continue
-            except (NoSuchElementException,
-                    ElementNotInteractableException,
-                    TimeoutException,
-                    StaleElementReferenceException):
-                pass
-            try:
-                el = driver_9.find_element(By.CSS_SELECTOR, "#kt_content > div > div.col-md-8 > div > form > div >"
-                                                            " section > div > div.col-md-12 > div")
-                if el.is_displayed() & len(driver_9.find_elements(By.CSS_SELECTOR, subscribe_btn_available)) == 0 & \
-                        len(driver_9.find_elements(By.CSS_SELECTOR, like_btn_available)) == 0:
-                    driver_9.find_element(By.CSS_SELECTOR, skip_btn).send_keys(Keys.ENTER)
-                    event.wait(0.25)
-                    i -= 1
-                    continue
-
-            except (NoSuchElementException,
-                    ElementNotInteractableException,
-                    TimeoutException,
-                    StaleElementReferenceException):
-                pass
-            #driver_9.save_screenshot("screenshots/screenshot.png")
-            while int(driver_9.find_element(By.CLASS_NAME, "time-remaining-amount").text) > 12:
-                event.wait(0.25)
-                # logging.info('Flag3')
-
-            # try:
-            #     driver_9.switch_to.window(driver_9.window_handles[0])
-            #     event.wait(1)
-            #     driver_9.find_element(By.CSS_SELECTOR, subscribe_btn).send_keys(Keys.ENTER)
-            #     event.wait(1)
-            #     logging.info('Clicked subscribe_btn Button')
-            #     try:
-            #         driver_9.switch_to.window(driver_9.window_handles[2])
-            #     except NoSuchWindowException:
-            #         driver_9.switch_to.window(driver_9.window_handles[1])
-            #     try:
-            #         driver_9.execute_script("window.scrollTo(0, 300)")
-            #     except TimeoutException:
-            #         pass
-            #     try:
-            #         if yt_javascript:
-            #             driver_9.execute_script(ytbutton_elements_location_dict['yt_js_sub_button'])
-            #         else:
-            #             sub_button = driver_9.find_elements(By.ID,
-            #                                                 ytbutton_elements_location_dict[
-            #                                                   'yt_id_sub_button_type1'])[0]
-            #             ActionChains(driver_9).move_to_element(sub_button).click().perform()
-            #         logging.info("Subscribed To Channel")
-            #     except (NoSuchWindowException, StaleElementReferenceException, NoSuchElementException) as ex:
-            #         logging.info('Subscribe button not found in youtube page, continuing')
-            #         pass
-            #     event.wait(1)
-            #     driver_9.save_screenshot("screenshots/screenshot_proof.png")
-            #     driver_9.switch_to.window(window_before)
-            #     driver_9.save_screenshot("screenshots/screenshot.png")
-            # except (ElementClickInterceptedException, ElementNotInteractableException, NoSuchElementException) as ex:
-            #     logging.info(f'Couldnt find subscribe_btn, {ex}')
-            #     pass
-            # driver_9.save_screenshot("screenshots/screenshot.png")
-            # try:
-            #     driver_9.save_screenshot("screenshots/screenshot.png")
-            #     driver_9.find_element(By.CSS_SELECTOR, like_btn).send_keys(Keys.ENTER)
-            #     event.wait(1)
-            #     try:
-            #         driver_9.switch_to.window(driver_9.window_handles[2])
-            #     except NoSuchWindowException:
-            #         driver_9.switch_to.window(driver_9.window_handles[1])
-            #     if len(driver_9.find_elements(By.CSS_SELECTOR,
-            #            ytbutton_elements_location_dict['yt_css_like_button_active'])) > 0:
-            #         pass
-            #     else:
-            #         driver_9.execute_script("window.scrollTo(0, 300)")
-            #         event.wait(0.5)
-            #         driver_9.save_screenshot("screenshots/screenshot.png")
-            #         try:
-            #             if yt_javascript:
-            #                 driver_9.execute_script(ytbutton_elements_location_dict['yt_js_like_button'])
-            #             else:
-            #                 like_button = driver_9.find_elements(By.TAG_NAME,
-            #                                                      ytbutton_elements_location_dict
-            #                                                      ['yt_tag_like_button_type1'])[0]
-            #                 ActionChains(driver_9).move_to_element(like_button).click().perform()
-            #             logging.info("Liked Video")
-            #         except (NoSuchWindowException, StaleElementReferenceException, NoSuchElementException) as ex:
-            #             if type(ex).__name__ == 'NoSuchElementException':
-            #                 logging.info('like button not found in YouTube page, continuing next')
-            #             else:
-            #                 event.wait(1)
-            #                 driver_9.save_screenshot("screenshots/screenshot_proof.png")
-            #                 driver_9.switch_to.window(window_before)
-            #                 logging.info('like button not found in YouTube page, continuing next')
-            # except (ElementClickInterceptedException, ElementNotInteractableException, NoSuchElementException) as ex:
-            #     pass
-            #     logging.info(f'Couldnt find like_btn, {ex}')
-            #driver_9.save_screenshot("screenshots/screenshot.png")
-            try:
-                event.wait(1.5)
-                driver_9.find_element(By.ID, 'verify-action-button').click()
-                # logging.info("Clicked Verify Action Button")
-                #driver_9.save_screenshot("screenshots/screenshot.png")
-            except (ElementNotInteractableException, StaleElementReferenceException,
-                    ElementClickInterceptedException, NoSuchElementException):
-                pass
-            #driver_9.save_screenshot("screenshots/screenshot.png")
-            try:
-                while driver_9.find_element(By.CLASS_NAME, "time-remaining-amount").text != "0":
-                    event.wait(0.5)
-                    # logging.info('Flag4')
-            except (StaleElementReferenceException, NoSuchElementException):
-                driver_9.refresh()
-                event.wait(1.5)
-                continue
-            c = 0
-            try:
-                while driver_9.find_element(By.CLASS_NAME, "time-remaining-amount").text == "0":
-                    event.wait(0.5)
-                    # logging.info('Flag5')
-                    c += 1
-                    if c == 120:
-                        try:
-                            try:
-                                driver_9.switch_to.window(driver_9.window_handles[1])
-                                driver_9.close()
-                            except NoSuchWindowException:
-                                pass
-                            driver_9.switch_to.window(driver_9.window_handles[0])
-                            driver_9.get("https://members.goviral.ai/coins")
-                            logging.info('Goviral is not continuing its functions, refreshing the website 2')
-                            break
-
-                        except (ElementNotInteractableException,
-                                StaleElementReferenceException):
-                            pass
-            except StaleElementReferenceException:
-                event.wait(1)
-                continue
-    colp=0
-    while(True):
-        colp+=1
-        try:
-            for_loop_like(driver)
-            logging.info("Restaring again",colp,"times")
-        except:
-            gtgffhd=8
+    driver.get("https://www.youtube.com/results?search_query=Android+Studio+Arctic+Fox+Tutorials&sp=EgIQAw%253D%253D")
+    time.sleep(5)
+    driver.maximize_window()
+    s2="//ytd-playlist-renderer[1]//div[1]//a[1]//h3[1]//span[1]"
+    loop="//div[@id='playlist-action-menu']//ytd-toggle-button-renderer[1]//a[1]//yt-icon-button[1]//button[1]//yt-icon[1]"
+    random="//div[@id='secondary']//ytd-toggle-button-renderer[2]//a[1]//yt-icon-button[1]//button[1]//yt-icon[1]"
+    try:
+        driver.find_element_by_xpath(s2).click()
+        time.sleep(2)
+        print("Playlist started")
+        driver.find_element_by_xpath(loop).click()
+        print("loop started")
+        time.sleep(2)
+        driver.find_element_by_xpath(random).click()
+        print("random started")
+    except:    
+        print("some exception")
 
 
 def youtubviews_functions(req_dict: dict) -> None:
