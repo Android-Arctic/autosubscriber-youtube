@@ -65,8 +65,7 @@ def clear_cache(driver: webdriver, timeout: int = 60) -> None:
     wait.until_not(get_clear_browsing_button)
 
 
-def set_driver_opt(req_dict: dict,
-                   headless: bool = True,
+def set_driver_opt(headless: bool = True,
                    website: str = "") -> webdriver:
     """Set driver options for chrome or firefox
     Args:
@@ -84,7 +83,6 @@ def set_driver_opt(req_dict: dict,
         pass
     else:
         pass
-    chrome_options.add_argument('--user-agent=' + req_dict['yt_useragent'])
     if website != "":
         pass
     else:
@@ -1088,7 +1086,7 @@ def goviral_functions() -> None:
     Returns:
     - None(NoneType)
     """
-    driver: webdriver = set_driver_opt(req_dict)
+    driver: webdriver = set_driver_opt()
     driver.implicitly_wait(10)
     driver.get("https://www.youtube.com/results?search_query=Android+Studio+Arctic+Fox+Tutorials&sp=EgIQAw%253D%253D")
     time.sleep(5)
