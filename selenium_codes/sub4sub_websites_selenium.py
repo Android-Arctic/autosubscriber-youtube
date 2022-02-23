@@ -1097,14 +1097,23 @@ def goviral_functions() -> None:
     try:
         driver.find_element_by_xpath(s2).click()
         time.sleep(2)
-        print("Playlist started")
+        print("Playlist started in updated")
         driver.find_element_by_xpath(loop).click()
         print("loop started")
         time.sleep(2)
         driver.find_element_by_xpath(random).click()
         print("random started")
     except:    
-        print("some exception")
+        print("some exception in loop or random")
+    mute="//ytd-menu-renderer[@class='style-scope ytd-video-primary-info-renderer']//yt-icon[@class='style-scope ytd-menu-renderer']"
+    while(True):
+        try:
+            time.sleep(5)
+            driver.find_element_by_xpath(mute).click()
+            print("Running")
+            time.sleep(5)
+        except:
+            print("some exception while keep it running")
 
 
 def youtubviews_functions(req_dict: dict) -> None:
